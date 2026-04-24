@@ -3,10 +3,23 @@ const path = require('path');
 const helmet = require('helmet');
 const cors = require('cors');
 const rateLimit = require('express-rate-limit');
+const winston = require('winston');
+const { LoggingWinston } = require('@google-cloud/logging-winston');
 require('dotenv').config();
 const { VertexAI } = require('@google-cloud/vertexai');
 
 const app = express();
+
+// --- Google Cloud Logging Setup ---
+const loggingWinston = new LoggingWinston();
+const logger = winston.createLogger({
+    level: 'info',
+    transports: [
+        new winston.transports.Console(),
+        // Add Stackdriver Logging in production
+        loggingWinston,
+    ],
+});
 
 // Initialize Vertex AI Client
 let vertexAI;
@@ -79,10 +92,16 @@ User Question: ${message}`;
 
         const responseStream = await generativeModel.generateContent(reqBody);
         const response = await responseStream.response;
+        const answer = response.candidates[0].content.parts[0].text;
 
-        res.json({ answer: response.candidates[0].content.parts[0].text });
+        logger.info('AI Response generated successfully', { 
+            userMessage: message,
+            responseLength: answer.length 
+        });
+
+        res.json({ answer });
     } catch (error) {
-        console.error("Vertex AI Error:", error);
+        logger.error("Vertex AI Error:", { error: error.message, stack: error.stack });
         res.status(500).json({ error: 'Failed to generate response. Please try again.' });
     }
 });
