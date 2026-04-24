@@ -4,102 +4,102 @@ document.addEventListener('DOMContentLoaded', () => {
     const electionSteps = [
         {
             id: 1,
-            title: "Check Requirements",
+            title: "Check Eligibility",
             date: "Anytime",
             icon: "fa-clipboard-check",
-            description: "Before you can vote, you must meet the basic requirements. You must be a U.S. citizen, meet your state's residency requirements, and be 18 years old on or before Election Day.",
+            description: "To vote in India, you must be an Indian citizen, at least 18 years old on the qualifying date (usually Jan 1st of the year), and ordinarily resident of the polling area.",
             detail1Title: "Citizenship",
-            detail1Text: "Only U.S. citizens can vote in federal elections.",
-            detail2Title: "Age",
-            detail2Text: "You can often pre-register at 16 or 17, but you must be 18 to cast a ballot.",
-            videoId: "P9VdyITyAEi" // Placeholder for Voting Requirements
+            detail1Text: "Only citizens of India have the right to vote in elections.",
+            detail2Title: "NRIs",
+            detail2Text: "Non-Resident Indians (NRIs) can register as overseas electors if they hold a valid Indian passport.",
+            videoId: "" 
         },
         {
             id: 2,
-            title: "Register to Vote",
-            date: "Weeks before Election Day",
+            title: "Register to Vote (Form 6)",
+            date: "Before Election Notification",
             icon: "fa-id-card",
-            description: "Every state except North Dakota requires you to register before you can vote. Deadlines vary by state, ranging from 30 days before the election to Election Day itself.",
-            detail1Title: "How to Register",
-            detail1Text: "You can register online, by mail, or in person at the DMV or local election office.",
-            detail2Title: "Check Status",
-            detail2Text: "Always verify your registration status well before the deadline, especially if you have moved.",
-            videoId: "v=o1xX88R_PIM" // Placeholder for How to Register
+            description: "You must register your name in the Electoral Roll. First-time voters need to fill out Form 6, which can be done online through the Voter Helpline App or the ECI portal.",
+            detail1Title: "Voter Portal",
+            detail1Text: "Visit voters.eci.gov.in to apply online.",
+            detail2Title: "EPIC Card",
+            detail2Text: "Once approved, you receive an Electors Photo Identity Card (EPIC), commonly known as a Voter ID.",
+            videoId: "" 
         },
         {
             id: 3,
-            title: "Research Candidates",
-            date: "Ongoing",
+            title: "Verify Electoral Roll",
+            date: "Weeks before Election",
             icon: "fa-magnifying-glass",
-            description: "Learn about the candidates running for office and the ballot measures in your area. Look beyond the presidential race to local and state elections, which often impact your daily life more directly.",
-            detail1Title: "Sample Ballots",
-            detail1Text: "Look up your sample ballot online so you know exactly what you will be voting on.",
-            detail2Title: "Non-Partisan Info",
-            detail2Text: "Use resources like Vote411 or Ballotpedia to find unbiased information on candidates' stances.",
-            videoId: "kO3aVvFqL4s" // Placeholder for Researching Candidates
+            description: "Having a Voter ID is not enough; your name MUST be on the voter list (Electoral Roll) at the polling booth. Always check your name online before the election.",
+            detail1Title: "Search Online",
+            detail1Text: "Use the 'Search in Electoral Roll' feature on the ECI website using your EPIC number.",
+            detail2Title: "Booth Slips",
+            detail2Text: "Booth Level Officers (BLOs) usually distribute voter information slips with your polling station details.",
+            videoId: "" 
         },
         {
             id: 4,
-            title: "Choose Voting Method",
-            date: "Weeks before Election",
-            icon: "fa-envelope-open-text",
-            description: "Decide how you want to cast your ballot. Most states offer several options: voting by mail (absentee), early voting in person, or voting on Election Day.",
-            detail1Title: "Vote by Mail",
-            detail1Text: "If you choose to vote by mail, request your ballot early and follow the instructions carefully.",
-            detail2Title: "Early Voting",
-            detail2Text: "Many states allow you to vote in person before Election Day, often with shorter lines.",
-            videoId: "y1vA4J2D92k" // Placeholder for Voting Methods
+            title: "Know Your Candidates",
+            date: "Campaign Period",
+            icon: "fa-user-tie",
+            description: "The Election Commission provides the KYC (Know Your Candidate) app. You can view the criminal antecedents, assets, and educational qualifications of the candidates.",
+            detail1Title: "KYC App",
+            detail1Text: "Download the ECI KYC app to make an informed decision.",
+            detail2Title: "Manifestos",
+            detail2Text: "Read the manifestos of political parties to understand their promises and policies.",
+            videoId: "" 
         },
         {
             id: 5,
-            title: "Cast Your Ballot",
-            date: "Election Day (or before)",
+            title: "Go to Polling Booth",
+            date: "Election Day",
             icon: "fa-person-booth",
-            description: "Head to your polling place or drop off your mail-in ballot. If voting in person, be sure to bring any required identification.",
-            detail1Title: "Polling Place",
-            detail1Text: "Your specific polling location is assigned based on your address. Double-check it before you go.",
-            detail2Title: "Voter ID",
-            detail2Text: "Rules vary by state. Check if you need to bring a photo ID or other documentation.",
-            videoId: "Wn_S-q7Lz00" // Placeholder for Casting Ballot
+            description: "Go to your designated polling station. Keep your EPIC or one of the other 11 approved alternative photo identity documents ready for verification.",
+            detail1Title: "Verification",
+            detail1Text: "The First Polling Officer will check your name in the voter list and verify your ID.",
+            detail2Title: "Inking",
+            detail2Text: "The Second Polling Officer will mark your left forefinger with indelible ink and give you a slip.",
+            videoId: "" 
         },
         {
             id: 6,
-            title: "Track Your Vote",
-            date: "Post-Election",
-            icon: "fa-truck-fast",
-            description: "If you voted by mail or provisional ballot, many states offer online tools to track the status of your ballot to ensure it was received and counted.",
-            detail1Title: "Curing Ballots",
-            detail1Text: "If there's an issue with your signature, some states allow you to 'cure' or fix your ballot so it counts.",
-            detail2Title: "Patience",
-            detail2Text: "Official results take time to certify as election officials ensure every valid vote is counted accurately.",
-            videoId: "8b78b0222f7" // Placeholder for Tracking Vote
+            title: "Cast Your Vote (EVM & VVPAT)",
+            date: "Election Day",
+            icon: "fa-box-archive",
+            description: "Proceed to the voting compartment. Press the blue button on the Electronic Voting Machine (EVM) next to the symbol of your chosen candidate.",
+            detail1Title: "VVPAT Verification",
+            detail1Text: "Look at the VVPAT machine window. A printed slip with your candidate's symbol will be visible for 7 seconds to verify your vote.",
+            detail2Title: "NOTA",
+            detail2Text: "If you don't prefer any candidate, you can press the NOTA (None of the Above) button at the bottom.",
+            videoId: "" 
         }
     ];
 
     const faqDatabase = [
         {
-            keywords: ["register", "registration", "sign up"],
-            answer: "To vote, you must be a US citizen, meet your state's residency requirements, and be 18 on or before Election Day. You can register online in most states, by mail, or in person at local election offices or DMVs. Check <strong>vote.gov</strong> for your specific state's rules and deadlines."
+            keywords: ["register", "registration", "form 6", "voter id", "epic"],
+            answer: "To register as a new voter, you need to fill out Form 6. You can do this online at voters.eci.gov.in or through the Voter Helpline App. You will need proof of age (like birth certificate or 10th mark sheet) and proof of residence."
         },
         {
-            keywords: ["electoral college", "college", "electoral", "270"],
-            answer: "The Electoral College is a process where 538 'electors' vote for the President. Each state gets electors equal to its total number of Congress members (House + Senate). A candidate needs a majority of 270 electoral votes to win the presidency. It's possible to win the national popular vote but lose the Electoral College."
+            keywords: ["evm", "machine", "how to vote", "button"],
+            answer: "At the polling booth, you will vote using an Electronic Voting Machine (EVM). Simply press the blue button next to the name and symbol of the candidate you wish to vote for. A red light will glow, and you will hear a beep sound confirming your vote."
         },
         {
-            keywords: ["primary", "caucus", "primaries"],
-            answer: "Primaries and caucuses are how political parties choose their candidates for the general election. In a primary, you vote secretly on a ballot. In a caucus, people gather locally to discuss and openly vote for candidates. Winning these gives a candidate 'delegates' for the national convention."
+            keywords: ["vvpat", "slip", "verify"],
+            answer: "VVPAT stands for Voter Verifiable Paper Audit Trail. After pressing the button on the EVM, look through the glass window of the VVPAT machine. A printed paper slip showing the serial number, name, and symbol of your chosen candidate will be visible for 7 seconds."
         },
         {
-            keywords: ["when", "date", "election day"],
-            answer: "General Election Day in the United States is always held on the first Tuesday following the first Monday in November. However, many states offer early voting and mail-in voting which start weeks beforehand."
+            keywords: ["nota", "none", "don't like"],
+            answer: "NOTA stands for 'None of the Above'. It is the last button on the EVM. If you feel none of the candidates in your constituency are suitable, you can press the NOTA button to register your dissatisfaction."
         },
         {
-            keywords: ["mail", "absentee", "early"],
-            answer: "Most states allow some form of early voting or voting by mail (absentee voting). The rules vary widely by state—some automatically mail ballots to all registered voters, while others require an 'excuse' to vote absentee. You should check your local election office website for specifics."
+            keywords: ["list", "roll", "electoral roll", "name missing"],
+            answer: "You can only vote if your name is in the Electoral Roll of your constituency. You can check this by going to electoralsearch.eci.gov.in and searching using your EPIC (Voter ID) number, or your personal details."
         },
         {
-            keywords: ["hello", "hi", "hey"],
-            answer: "Hello! I'm your Election Assistant. I can explain the timeline of a presidential election, help you understand the Electoral College, or answer questions about voter registration. What would you like to know?"
+            keywords: ["hello", "hi", "hey", "help"],
+            answer: "Namaste! I'm your Indian Election Assistant. I can help you understand how to register for a Voter ID, check your name in the electoral roll, or how to use an EVM. What would you like to know?"
         }
     ];
 

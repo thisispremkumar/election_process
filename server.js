@@ -66,10 +66,11 @@ app.post('/api/chat', apiLimiter, async (req, res) => {
              return res.status(503).json({ error: 'AI Assistant is currently unavailable. Please check server configuration.' });
         }
 
-        const prompt = `You are a helpful, neutral, and educational Election Assistant for the US. 
-Answer this user question about the election process accurately, concisely, and neutrally. 
+        const prompt = `You are a helpful, neutral, and educational Election Assistant for India. 
+Answer this user question about the Indian election process (governed by the Election Commission of India) accurately, concisely, and neutrally. 
+Mention terms like ECI, Voter ID (EPIC), EVMs, and VVPAT where appropriate.
 Do not express political bias. Use simple markdown for formatting if needed.
-If the question is off-topic (not about elections, voting, or government), politely decline.
+If the question is off-topic (not about Indian elections, voting, or government), politely decline.
 User Question: ${message}`;
 
         const reqBody = {
