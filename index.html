@@ -37,6 +37,29 @@
       }
     }
     </script>
+
+    <!-- FAQ Structured Data for Google Search -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "How do I register to vote in India?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can register by filling out Form 6 online at voters.eci.gov.in or through the Voter Helpline App."
+        }
+      }, {
+        "@type": "Question",
+        "name": "What is an EVM and VVPAT?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "EVM is the Electronic Voting Machine used to cast votes, and VVPAT is the machine that provides a printed slip for 7 seconds to verify your vote."
+        }
+      }]
+    }
+    </script>
 </head>
 <body>
     <div class="background-effects">
@@ -119,6 +142,8 @@
         <p>Created for educational purposes. <a href="https://voters.eci.gov.in/" target="_blank">ECI Voter Portal</a></p>
     </footer>
 
+    <script src="data.js"></script>
+    <script src="utils.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

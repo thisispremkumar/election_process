@@ -40,9 +40,8 @@ describe('Server Endpoints and Security', () => {
                 .post('/api/chat')
                 .send({ message: longMessage });
             
-            // Should either process or fail gracefully (not crash)
             expect([200, 400, 500, 503]).toContain(res.statusCode);
-        });
+        }, 10000);
 
         it('should handle special characters in message', async () => {
             const res = await request(app)

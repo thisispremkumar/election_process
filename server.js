@@ -8,6 +8,19 @@ const { LoggingWinston } = require('@google-cloud/logging-winston');
 require('dotenv').config();
 const { VertexAI } = require('@google-cloud/vertexai');
 
+// --- Google Cloud Profiler Setup ---
+if (process.env.NODE_ENV === 'production') {
+    require('@google-cloud/profiler').start({
+        projectId: process.env.GOOGLE_CLOUD_PROJECT || 'election-process-494307',
+        serviceContext: {
+            service: 'election-process-assistant',
+            version: '1.0.0',
+        },
+    }).catch((err) => {
+        console.error('Failed to start Google Cloud Profiler:', err);
+    });
+}
+
 const app = express();
 
 // --- Google Cloud Logging Setup ---
