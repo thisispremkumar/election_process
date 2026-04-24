@@ -153,7 +153,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Render Timeline Steps
     function renderTimeline() {
         stepsList.innerHTML = '';
+        const headerLinks = document.getElementById('header-step-links');
+        if (headerLinks) headerLinks.innerHTML = '';
+
         electionSteps.forEach((step, index) => {
+            // Main Timeline Sidebar
             const li = document.createElement('li');
             li.className = `step-item ${index === currentStepIndex ? 'active' : ''}`;
             li.innerHTML = `
@@ -162,6 +166,18 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             li.addEventListener('click', () => selectStep(index));
             stepsList.appendChild(li);
+
+            // Header Top Nav Links
+            if (headerLinks) {
+                const headerBtn = document.createElement('button');
+                headerBtn.className = `header-step-btn ${index === currentStepIndex ? 'active' : ''}`;
+                headerBtn.textContent = step.title;
+                headerBtn.addEventListener('click', () => {
+                    switchView('timeline');
+                    selectStep(index);
+                });
+                headerLinks.appendChild(headerBtn);
+            }
         });
         updateTimelineView();
     }
@@ -205,10 +221,16 @@ document.addEventListener('DOMContentLoaded', () => {
     function selectStep(index) {
         currentStepIndex = index;
         
-        // Update active class
+        // Update active class in sidebar
         const items = document.querySelectorAll('.step-item');
         items.forEach((item, i) => {
             item.classList.toggle('active', i === currentStepIndex);
+        });
+
+        // Update active class in header nav
+        const headerBtns = document.querySelectorAll('.header-step-btn');
+        headerBtns.forEach((btn, i) => {
+            btn.classList.toggle('active', i === currentStepIndex);
         });
 
         // Move list

@@ -4,16 +4,25 @@ const helmet = require('helmet');
 const cors = require('cors');
 const rateLimit = require('express-rate-limit');
 require('dotenv').config();
-const { GoogleGenAI } = require('@google/genai');
+const { VertexAI } = require('@google-cloud/vertexai');
 
 const app = express();
 
-// Initialize Gemini Client
-let ai;
-if (process.env.GEMINI_API_KEY) {
-    ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-} else {
-    console.warn("GEMINI_API_KEY not found in .env. Assistant will be disabled or return mock responses.");
+// Initialize Vertex AI Client
+let vertexAI;
+let generativeModel;
+
+try {
+    // Project ID and location should preferably come from env, defaulting for this specific project
+    const project = process.env.GOOGLE_CLOUD_PROJECT || 'election-process-494307';
+    const location = process.env.GOOGLE_CLOUD_LOCATION || 'us-central1';
+    
+    vertexAI = new VertexAI({ project: project, location: location });
+    generativeModel = vertexAI.getGenerativeModel({
+        model: 'gemini-1.5-flash',
+    });
+} catch (error) {
+    console.warn("Failed to initialize Vertex AI. Assistant will be disabled or return mock responses.", error);
 }
 
 // Security Middleware
@@ -53,7 +62,7 @@ app.post('/api/chat', apiLimiter, async (req, res) => {
             return res.status(400).json({ error: 'Message is required' });
         }
 
-        if (!ai) {
+        if (!generativeModel) {
              return res.status(503).json({ error: 'AI Assistant is currently unavailable. Please check server configuration.' });
         }
 
@@ -63,14 +72,16 @@ Do not express political bias. Use simple markdown for formatting if needed.
 If the question is off-topic (not about elections, voting, or government), politely decline.
 User Question: ${message}`;
 
-        const response = await ai.models.generateContent({
-            model: 'gemini-2.5-flash',
-            contents: prompt,
-        });
+        const reqBody = {
+            contents: [{ role: 'user', parts: [{ text: prompt }] }],
+        };
 
-        res.json({ answer: response.text });
+        const responseStream = await generativeModel.generateContent(reqBody);
+        const response = await responseStream.response;
+
+        res.json({ answer: response.candidates[0].content.parts[0].text });
     } catch (error) {
-        console.error("Gemini API Error:", error);
+        console.error("Vertex AI Error:", error);
         res.status(500).json({ error: 'Failed to generate response. Please try again.' });
     }
 });

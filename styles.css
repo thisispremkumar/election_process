@@ -164,6 +164,41 @@ nav {
     box-shadow: 0 4px 15px var(--primary-glow);
 }
 
+.step-nav-links {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    max-width: 50vw;
+    scrollbar-width: none; /* Firefox */
+}
+.step-nav-links::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+.header-step-btn {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--text-muted);
+    padding: 0.4rem 0.8rem;
+    border-radius: 15px;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.header-step-btn:hover {
+    color: var(--text-main);
+    background: rgba(255,255,255,0.05);
+}
+
+.header-step-btn.active {
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--accent);
+    border-color: rgba(16, 185, 129, 0.5);
+}
+
 /* Main Container */
 .container {
     flex: 1;
