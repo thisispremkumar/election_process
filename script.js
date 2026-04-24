@@ -11,7 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
             detail1Title: "Filing",
             detail1Text: "Candidates must file with the Federal Election Commission (FEC) once they raise or spend more than $5,000.",
             detail2Title: "Campaigning",
-            detail2Text: "Early campaigning involves raising money, building a team, and touring key states."
+            detail2Text: "Early campaigning involves raising money, building a team, and touring key states.",
+            videoId: "b4XN-d8x18M" // Example YouTube video ID (How to run for president)
         },
         {
             id: 2,
@@ -22,7 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
             detail1Title: "Delegates",
             detail1Text: "Candidates win 'delegates' based on the results of these state-level votes.",
             detail2Title: "Super Tuesday",
-            detail2Text: "The day when the largest number of states hold their primaries and caucuses."
+            detail2Text: "The day when the largest number of states hold their primaries and caucuses.",
+            videoId: "_9cgxsCQh2A" // Example YouTube video ID (Primaries and Caucuses)
         },
         {
             id: 3,
@@ -33,7 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
             detail1Title: "The Ticket",
             detail1Text: "The Presidential nominee officially announces their Vice Presidential running mate.",
             detail2Title: "Party Platform",
-            detail2Text: "The party establishes and adopts its official stance on various political issues."
+            detail2Text: "The party establishes and adopts its official stance on various political issues.",
+            videoId: "wJ81n1N5s8s" // Example YouTube video ID (National Conventions)
         },
         {
             id: 4,
@@ -44,7 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
             detail1Title: "Debates",
             detail1Text: "Usually three presidential debates and one vice-presidential debate are held.",
             detail2Title: "Swing States",
-            detail2Text: "Campaigns focus heavily on 'battleground' states where the outcome is uncertain."
+            detail2Text: "Campaigns focus heavily on 'battleground' states where the outcome is uncertain.",
+            videoId: "p2e27X8bBEM" // Example YouTube video ID (Debates/Campaigning)
         },
         {
             id: 5,
@@ -55,7 +59,8 @@ document.addEventListener('DOMContentLoaded', () => {
             detail1Title: "Popular Vote",
             detail1Text: "The total number of individual votes cast for a candidate nationwide.",
             detail2Title: "Media Calls",
-            detail2Text: "News outlets project winners based on exit polls and early returns, but official results take days."
+            detail2Text: "News outlets project winners based on exit polls and early returns, but official results take days.",
+            videoId: "ok_VQ8I7g6I" // Example YouTube video ID (Electoral College / Election Day overview)
         },
         {
             id: 6,
@@ -66,7 +71,8 @@ document.addEventListener('DOMContentLoaded', () => {
             detail1Title: "Winner-Take-All",
             detail1Text: "In 48 states and DC, the winner of the state's popular vote gets ALL its electoral votes.",
             detail2Title: "Certification",
-            detail2Text: "Congress meets in early January to officially count and certify the electoral votes."
+            detail2Text: "Congress meets in early January to officially count and certify the electoral votes.",
+            videoId: "W9H3gvnN468" // Example YouTube video ID (Electoral College explained)
         },
         {
             id: 7,
@@ -77,7 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
             detail1Title: "The Oath",
             detail1Text: "Administered by the Chief Justice of the Supreme Court.",
             detail2Title: "Transition",
-            detail2Text: "Power is officially transferred, and the new administration begins its work."
+            detail2Text: "Power is officially transferred, and the new administration begins its work.",
+            videoId: "6fG2j4G6J9Q" // Example YouTube video ID (Presidential Transition)
         }
     ];
 
@@ -172,6 +179,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="step-icon"><i class="fa-solid ${step.icon} fa-2x" style="color: var(--primary);" aria-hidden="true"></i></div>
                 </div>
                 <h3 class="content-title">${step.title}</h3>
+                
+                ${step.videoId ? `
+                <div class="video-container">
+                    <iframe width="100%" height="250" src="https://www.youtube.com/embed/${step.videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>` : ''}
+
                 <p class="content-body">${step.description}</p>
                 <div class="content-details">
                     <div class="detail-box">
@@ -217,6 +230,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelector('.next-arrow').addEventListener('click', () => {
         if (currentStepIndex < electionSteps.length - 1) selectStep(currentStepIndex + 1);
+    });
+
+    // Swipe functionality for Timeline Card
+    let touchstartX = 0;
+    let touchendX = 0;
+
+    function handleGesture() {
+        if (touchendX < touchstartX - 50) {
+            // Swiped left, go to next
+            if (currentStepIndex < electionSteps.length - 1) selectStep(currentStepIndex + 1);
+        }
+        
+        if (touchendX > touchstartX + 50) {
+            // Swiped right, go to previous
+            if (currentStepIndex > 0) selectStep(currentStepIndex - 1);
+        }
+    }
+
+    contentCard.addEventListener('touchstart', e => {
+        touchstartX = e.changedTouches[0].screenX;
+    });
+
+    contentCard.addEventListener('touchend', e => {
+        touchendX = e.changedTouches[0].screenX;
+        handleGesture();
     });
 
     // Initialize Timeline
