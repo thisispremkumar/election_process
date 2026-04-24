@@ -205,6 +205,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const sendBtn = document.getElementById('send-btn');
     const chatMessages = document.getElementById('chat-messages');
 
+    function speak(text) {
+        if ('speechSynthesis' in window) {
+            // Cancel any ongoing speech
+            window.speechSynthesis.cancel();
+            
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 1;
+            utterance.pitch = 1;
+            
+            // Try to find an Indian English or local voice if available
+            const voices = window.speechSynthesis.getVoices();
+            const preferredVoice = voices.find(v => v.lang.includes('en-IN') || v.lang.includes('hi-IN'));
+            if (preferredVoice) utterance.voice = preferredVoice;
+
+            window.speechSynthesis.speak(utterance);
+        }
+    }
+
     function addMessage(text, isUser = false, isMarkdown = false) {
         const msgDiv = document.createElement('div');
         msgDiv.className = `message ${isUser ? 'user-message' : 'ai-message'}`;
@@ -220,13 +238,21 @@ document.addEventListener('DOMContentLoaded', () => {
             contentHTML = `<p>${text.replace(/\n/g, '<br>')}</p>`;
         }
 
+        const speakBtnHTML = !isUser ? `<button class="speak-msg-btn" title="Listen"><i class="fa-solid fa-volume-high"></i></button>` : '';
+
         msgDiv.innerHTML = `
             <div class="message-avatar"><i class="fa-solid ${avatarIcon}" aria-hidden="true"></i></div>
             <div class="message-content">
                 ${contentHTML}
+                ${speakBtnHTML}
             </div>
         `;
         
+        if (!isUser) {
+            const btn = msgDiv.querySelector('.speak-msg-btn');
+            btn.addEventListener('click', () => speak(text));
+        }
+
         chatMessages.appendChild(msgDiv);
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
@@ -290,6 +316,38 @@ document.addEventListener('DOMContentLoaded', () => {
     chatInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') handleSend();
     });
+
+    // Voice Search
+    const voiceBtn = document.getElementById('voice-search-btn');
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+        const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new Recognition();
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.lang = 'en-IN';
+
+        voiceBtn.addEventListener('click', () => {
+            voiceBtn.classList.add('recording');
+            recognition.start();
+        });
+
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            chatInput.value = transcript;
+            voiceBtn.classList.remove('recording');
+            handleSend();
+        };
+
+        recognition.onerror = () => {
+            voiceBtn.classList.remove('recording');
+        };
+        
+        recognition.onend = () => {
+            voiceBtn.classList.remove('recording');
+        };
+    } else {
+        voiceBtn.style.display = 'none';
+    }
 
     // Suggested queries
     document.querySelectorAll('.query-chip').forEach(chip => {

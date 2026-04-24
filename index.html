@@ -13,6 +13,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.3/purify.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
+    <!-- Google Translate -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
     <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-PLACEHOLDER"></script>
     <script>
@@ -117,6 +125,9 @@
             </div>
 
             <div class="chat-container glass-panel">
+                <div class="chat-header">
+                    <div id="google_translate_element"></div>
+                </div>
                 <div class="chat-messages" id="chat-messages">
                     <div class="message ai-message">
                         <div class="message-avatar"><i class="fa-solid fa-robot"></i></div>
@@ -131,6 +142,7 @@
                     </div>
                 </div>
                 <div class="chat-input-area">
+                    <button id="voice-search-btn" class="icon-btn" title="Voice Search"><i class="fa-solid fa-microphone"></i></button>
                     <input type="text" id="chat-input" placeholder="Ask a question about the election process..." aria-label="Ask the AI Assistant a question">
                     <button id="send-btn" class="primary-btn" aria-label="Send message"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i></button>
                 </div>

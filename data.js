@@ -52,7 +52,7 @@ const electionSteps = [
         title: "Go to Polling Booth",
         date: "Election Day",
         icon: "fa-person-booth",
-        description: "Go to your designated polling station. Keep your EPIC or one of the other 11 approved alternative photo identity documents ready for verification.",
+        description: "Go to your designated polling station. Keep your EPIC or one of the other 11 photo identity documents ready. <br><br><a href='https://www.google.com/maps/search/polling+booth+near+me' target='_blank' class='maps-link'><i class='fa-solid fa-location-dot'></i> Find Polling Booth on Google Maps</a>",
         detail1Title: "Verification",
         detail1Text: "The First Polling Officer will check your name in the voter list and verify your ID.",
         detail2Title: "Inking",
