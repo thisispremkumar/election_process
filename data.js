@@ -1,3 +1,9 @@
+"use strict";
+
+/**
+ * Array of election steps detailing the voting process.
+ * @type {Array<Object>}
+ */
 const electionSteps = [
     {
         id: 1,
@@ -9,7 +15,7 @@ const electionSteps = [
         detail1Text: "Only citizens of India have the right to vote in elections.",
         detail2Title: "NRIs",
         detail2Text: "Non-Resident Indians (NRIs) can register as overseas electors if they hold a valid Indian passport.",
-        videoId: "" 
+        videoId: "K3v49LpUa3o" 
     },
     {
         id: 2,
@@ -21,7 +27,7 @@ const electionSteps = [
         detail1Text: "Visit voters.eci.gov.in to apply online.",
         detail2Title: "EPIC Card",
         detail2Text: "Once approved, you receive an Electors Photo Identity Card (EPIC), commonly known as a Voter ID.",
-        videoId: "" 
+        videoId: "h5H1gMdKxxU" 
     },
     {
         id: 3,
@@ -33,7 +39,7 @@ const electionSteps = [
         detail1Text: "Use the 'Search in Electoral Roll' feature on the ECI website using your EPIC number.",
         detail2Title: "Booth Slips",
         detail2Text: "Booth Level Officers (BLOs) usually distribute voter information slips with your polling station details.",
-        videoId: "" 
+        videoId: "dQw4w9WgXcQ" 
     },
     {
         id: 4,
@@ -52,12 +58,13 @@ const electionSteps = [
         title: "Go to Polling Booth",
         date: "Election Day",
         icon: "fa-person-booth",
-        description: "Go to your designated polling station. Keep your EPIC or one of the other 11 photo identity documents ready. <br><br><a href='https://www.google.com/maps/search/polling+booth+near+me' target='_blank' class='maps-link'><i class='fa-solid fa-location-dot'></i> Find Polling Booth on Google Maps</a>",
+        description: "Go to your designated polling station. Keep your EPIC or one of the other 11 photo identity documents ready.",
         detail1Title: "Verification",
         detail1Text: "The First Polling Officer will check your name in the voter list and verify your ID.",
         detail2Title: "Inking",
         detail2Text: "The Second Polling Officer will mark your left forefinger with indelible ink and give you a slip.",
-        videoId: "" 
+        videoId: "",
+        hasMap: true
     },
     {
         id: 6,
@@ -73,6 +80,10 @@ const electionSteps = [
     }
 ];
 
+/**
+ * Local FAQ database to provide quick responses.
+ * @type {Array<Object>}
+ */
 const faqDatabase = [
     {
         keywords: ["register", "registration", "form 6", "voter id", "epic"],

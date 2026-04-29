@@ -1,4 +1,4 @@
-const { findFaqResponse } = require('./utils');
+const { findFaqResponse, debounce } = require('./utils');
 const { faqDatabase } = require('./data');
 
 describe('Frontend Logic - FAQ Matching', () => {
@@ -23,6 +23,23 @@ describe('Frontend Logic - FAQ Matching', () => {
         expect(response).toBeNull();
     });
 
+    it('should return null for missing inputs', () => {
+        expect(findFaqResponse('', faqDatabase)).toBeNull();
+        expect(findFaqResponse(null, faqDatabase)).toBeNull();
+        expect(findFaqResponse(123, faqDatabase)).toBeNull();
+    });
+
+    it('should return null for empty database lookups', () => {
+        expect(findFaqResponse('evm', [])).toBeNull();
+    });
+
+    it('should return cached response on identical subsequent query', () => {
+        const first = findFaqResponse('What is an EVM?', faqDatabase);
+        const second = findFaqResponse('What is an EVM?', faqDatabase);
+        expect(first).toBe(second);
+        expect(second).toContain('Electronic Voting Machine');
+    });
+
     it('should be case insensitive', () => {
         const response = findFaqResponse('TELL ME ABOUT EPIC', faqDatabase);
         expect(response).not.toBeNull();
@@ -32,5 +49,27 @@ describe('Frontend Logic - FAQ Matching', () => {
     it('should find response for partial keyword matches', () => {
         const response = findFaqResponse('registration process', faqDatabase);
         expect(response).toContain('Form 6');
+    });
+});
+
+describe('Utils - Debounce', () => {
+    jest.useFakeTimers();
+
+    it('should debounce function execution', () => {
+        const mockFunc = jest.fn();
+        const debouncedFunc = debounce(mockFunc, 100);
+
+        debouncedFunc('test');
+        debouncedFunc('test');
+        debouncedFunc('test');
+
+        expect(mockFunc).not.toHaveBeenCalled();
+
+        jest.advanceTimersByTime(50);
+        expect(mockFunc).not.toHaveBeenCalled();
+
+        jest.advanceTimersByTime(50);
+        expect(mockFunc).toHaveBeenCalledTimes(1);
+        expect(mockFunc).toHaveBeenCalledWith('test');
     });
 });

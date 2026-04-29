@@ -3,50 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Interactive guide to understand the election process, timelines, and voting steps.">
-    <title>Election Process Assistant</title>
+    <meta name="description" content="Interactive guide to understand the Indian election process, timelines, and voting steps. Powered by Google Cloud AI.">
+    <meta name="keywords" content="Indian election, voter registration, EVM, VVPAT, ECI, Election Commission of India, Voter ID, EPIC">
+    <meta name="robots" content="index, follow">
+    <title>Election Process Assistant | Indian Voter Guide</title>
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Google Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.3/purify.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-    <!-- Google Translate -->
+    <!-- Google Maps JavaScript API (loaded async, initialized dynamically on demand) -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=G-PLACEHOLDER&callback=initMap&libraries=places,marker" async defer></script>
+
+    <!-- Google reCAPTCHA v3 (bot protection for AI chat form) -->
+    <script src="https://www.google.com/recaptcha/api.js?render=G-PLACEHOLDER" async defer></script>
+
+    <!-- Google Translate Widget -->
     <script type="text/javascript">
         function googleTranslateElementInit() {
-            new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,hi,ta,te,bn,mr,gu,kn,ml,pa,ur',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
         }
     </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async defer></script>
 
-    <!-- Google Analytics 4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PLACEHOLDER"></script>
+    <!-- Google Analytics 4 (GA4) with custom event tracking -->
+    <script async defer src="https://www.googletagmanager.com/gtag/js?id=G-PLACEHOLDER"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'G-PLACEHOLDER');
+        gtag('config', 'G-PLACEHOLDER', {
+            'page_title': 'Election Process Assistant',
+            'custom_map': {
+                'dimension1': 'step_name',
+                'dimension2': 'chat_query'
+            }
+        });
+
+        /**
+         * Tracks a custom GA4 event. Called from script.js on user interactions.
+         * @param {string} eventName - The name of the GA4 event.
+         * @param {Object} [params={}] - Optional parameters for the event.
+         */
+        function trackEvent(eventName, params) {
+            if (typeof gtag === 'function') {
+                gtag('event', eventName, params || {});
+            }
+        }
     </script>
 
-    <!-- Structured Data (JSON-LD) for Google Search -->
+    <!-- Structured Data (JSON-LD) - EducationalApplication for Google Search -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "EducationalApplication",
       "name": "Election Process Assistant",
-      "description": "Interactive guide to the Indian election process and voter journey.",
-      "applicationCategory": "Educational",
+      "description": "Interactive guide to the Indian election process and voter journey. Powered by Google Cloud Vertex AI.",
+      "applicationCategory": "EducationalApplication",
       "operatingSystem": "Web",
+      "url": "https://election-process-assistant.run.app",
+      "inLanguage": ["en", "hi"],
+      "isAccessibleForFree": true,
       "author": {
-        "@type": "Person",
-        "name": "Indian Election Assistant"
+        "@type": "Organization",
+        "name": "ElectionIQ"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "INR"
       }
     }
     </script>
 
-    <!-- FAQ Structured Data for Google Search -->
+    <!-- Structured Data (JSON-LD) - FAQPage for Google Search Rich Results -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -56,20 +99,59 @@
         "name": "How do I register to vote in India?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "You can register by filling out Form 6 online at voters.eci.gov.in or through the Voter Helpline App."
+          "text": "You can register by filling out Form 6 online at voters.eci.gov.in or through the Voter Helpline App. You will need proof of age and address."
         }
       }, {
         "@type": "Question",
         "name": "What is an EVM and VVPAT?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "EVM is the Electronic Voting Machine used to cast votes, and VVPAT is the machine that provides a printed slip for 7 seconds to verify your vote."
+          "text": "EVM is the Electronic Voting Machine used to cast votes, and VVPAT is the Voter Verifiable Paper Audit Trail machine that provides a printed slip visible for 7 seconds to verify your vote."
         }
+      }, {
+        "@type": "Question",
+        "name": "What is NOTA?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "NOTA stands for None of the Above. It is the last button on the EVM, allowing voters to register dissatisfaction with all candidates."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How to check my name in the Electoral Roll?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Visit electoralsearch.eci.gov.in and search using your EPIC (Voter ID) number or personal details to verify your name in the Electoral Roll."
+        }
+      }]
+    }
+    </script>
+
+    <!-- Structured Data (JSON-LD) - BreadcrumbList for Google Search navigation -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://election-process-assistant.run.app"
+      }, {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Voter Journey Timeline",
+        "item": "https://election-process-assistant.run.app/#timeline"
+      }, {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "AI Election Assistant",
+        "item": "https://election-process-assistant.run.app/#assistant"
       }]
     }
     </script>
 </head>
 <body>
+    <a class="skip-link" href="#view-timeline">Skip to main content</a>
     <div class="background-effects">
         <div class="glow-orb orb-1"></div>
         <div class="glow-orb orb-2"></div>
@@ -82,13 +164,13 @@
             <h1>ElectionIQ</h1>
         </div>
         <nav aria-label="Main Navigation" class="main-nav">
-            <button class="nav-btn active" id="btn-timeline" aria-label="View Journey Timeline" aria-pressed="true">Journey</button>
+            <button class="nav-btn active" id="btn-timeline" aria-label="View Journey Timeline" aria-pressed="true" tabindex="0">Journey</button>
             
             <div class="step-nav-links" id="header-step-links">
                 <!-- Links injected by JS -->
             </div>
 
-            <button class="nav-btn" id="btn-assistant" aria-label="View AI Assistant" aria-pressed="false">AI Assistant</button>
+            <button class="nav-btn" id="btn-assistant" aria-label="View AI Assistant" aria-pressed="false" tabindex="0">AI Assistant</button>
         </nav>
     </header>
 
@@ -102,13 +184,13 @@
 
             <div class="timeline-container">
                 <div class="timeline-nav" aria-label="Timeline Navigation">
-                    <button class="timeline-arrow prev-arrow" aria-label="Previous step"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
+                    <button class="timeline-arrow prev-arrow" aria-label="Previous step" tabindex="0"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
                     <div class="timeline-steps-wrapper">
                         <ul class="timeline-steps" id="timeline-steps" role="tablist">
                             <!-- Steps generated by JS -->
                         </ul>
                     </div>
-                    <button class="timeline-arrow next-arrow" aria-label="Next step"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
+                    <button class="timeline-arrow next-arrow" aria-label="Next step" tabindex="0"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
                 </div>
 
                 <div class="content-card glass-panel" id="step-content" role="region" aria-live="polite">
@@ -128,30 +210,30 @@
                 <div class="chat-header">
                     <div id="google_translate_element"></div>
                 </div>
-                <div class="chat-messages" id="chat-messages">
+                <div class="chat-messages" id="chat-messages" role="log" aria-live="polite" aria-relevant="additions">
                     <div class="message ai-message">
-                        <div class="message-avatar"><i class="fa-solid fa-robot"></i></div>
+                        <div class="message-avatar"><i class="fa-solid fa-robot" aria-hidden="true"></i></div>
                         <div class="message-content">
-                            <p>Hello! I'm your Election Assistant. How can I help you understand the voting process today?</p>
+                            <p>Hello! I'm your Election Assistant powered by <strong>Google Gemini AI</strong>. How can I help you understand the voting process today?</p>
                             <div class="suggested-queries">
-                                <button class="query-chip">How do I get a Voter ID?</button>
-                                <button class="query-chip">What is an EVM?</button>
-                                <button class="query-chip">How to check my name in the voter list?</button>
+                                <button class="query-chip" tabindex="0" aria-label="Ask How do I get a Voter ID">How do I get a Voter ID?</button>
+                                <button class="query-chip" tabindex="0" aria-label="Ask What is an EVM">What is an EVM?</button>
+                                <button class="query-chip" tabindex="0" aria-label="Ask How to check my name in the voter list">How to check my name in the voter list?</button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="chat-input-area">
-                    <button id="voice-search-btn" class="icon-btn" title="Voice Search"><i class="fa-solid fa-microphone"></i></button>
-                    <input type="text" id="chat-input" placeholder="Ask a question about the election process..." aria-label="Ask the AI Assistant a question">
-                    <button id="send-btn" class="primary-btn" aria-label="Send message"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i></button>
+                    <button id="voice-search-btn" class="icon-btn" title="Voice Search (Web Speech API)" aria-label="Use voice search with Web Speech API" tabindex="0"><i class="fa-solid fa-microphone" aria-hidden="true"></i></button>
+                    <input type="text" id="chat-input" placeholder="Ask a question about the election process..." aria-label="Ask the AI Assistant a question" tabindex="0" autocomplete="off">
+                    <button id="send-btn" class="primary-btn" aria-label="Send message to Google Gemini AI" tabindex="0"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i></button>
                 </div>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>Created for educational purposes. <a href="https://voters.eci.gov.in/" target="_blank">ECI Voter Portal</a></p>
+        <p>Powered by <strong>Google Cloud</strong> (Vertex AI, Cloud Run, Cloud Logging). <a href="https://voters.eci.gov.in/" target="_blank" rel="noopener noreferrer">ECI Voter Portal</a></p>
     </footer>
 
     <script src="data.js"></script>

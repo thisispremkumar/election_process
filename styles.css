@@ -8,7 +8,7 @@
     --secondary-glow: rgba(239, 68, 68, 0.4);
     --accent: #10b981;
     --text-main: #f8fafc;
-    --text-muted: #94a3b8;
+    --text-muted: #cbd5e1;
     
     /* Glassmorphism */
     --glass-bg: rgba(30, 41, 59, 0.6);
@@ -742,3 +742,51 @@ footer a {
     transform: translateY(-2px);
 }
 
+/* Skip to content link (Accessibility) */
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 0;
+    background: var(--primary);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    z-index: 9999;
+    font-weight: 600;
+    border-radius: 0 0 8px 0;
+    transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* Map container */
+.map-container {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+    margin-top: 1.5rem;
+}
+
+/* Reduced motion preference (Accessibility) */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .glow-orb {
+        animation: none;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    :root {
+        --glass-bg: rgba(0, 0, 0, 0.85);
+        --glass-border: rgba(255, 255, 255, 0.4);
+        --text-muted: #e2e8f0;
+    }
+}
